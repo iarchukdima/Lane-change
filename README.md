@@ -1,10 +1,5 @@
 # Lane-change for an autonomous car
 
-# Derivation of the 2DOF Bicycle Model Equations for Autonomous Vehicles
-
-This document explains how the equations of motion for the **2 Degrees of Freedom (2DOF) bicycle model** are derived, focusing on lateral and yaw dynamics of an autonomous vehicle.
-
----
 
 ## 1. Vehicle Model and Assumptions
 
