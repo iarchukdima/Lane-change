@@ -95,10 +95,10 @@ Define the state variables:
 
 $$
 \begin{cases}
-x_1 = y \quad & \text{(lateral position)} \\
-x_2 = \dot{y} \quad & \text{(lateral velocity)} \\
-x_3 = \psi \quad & \text{(yaw angle)} \\
-x_4 = \dot{\psi} \quad & \text{(yaw rate)}
+s_1 = y \quad & \text{(lateral position)} \\
+s_2 = \dot{y} \quad & \text{(lateral velocity)} \\
+s_3 = \psi \quad & \text{(yaw angle)} \\
+s_4 = \dot{\psi} \quad & \text{(yaw rate)}
 \end{cases}
 $$
 
@@ -106,10 +106,10 @@ The system dynamics can be expressed as:
 
 $$
 \begin{cases}
-\dot{x}_1 = x_2 \\
-\dot{x}_2 = \frac{2 C_f}{m} \left( \delta - \frac{x_2 + l_f x_4}{V_x} \right) + \frac{2 C_r}{m} \left( - \frac{x_2 - l_r x_4}{V_x} \right) \\
-\dot{x}_3 = x_4 \\
-\dot{x}_4 = \frac{2 l_f C_f}{I_z} \left( \delta - \frac{x_2 + l_f x_4}{V_x} \right) - \frac{2 l_r C_r}{I_z} \left( - \frac{x_2 - l_r x_4}{V_x} \right)
+\dot{s}_1 = s_2 \\
+\dot{s}_2 = \frac{2 C_f}{m} \left( \delta - \frac{s_2 + l_f s_4}{V_x} \right) + \frac{2 C_r}{m} \left( - \frac{s_2 - l_r s_4}{V_x} \right) \\
+\dot{s}_3 = s_4 \\
+\dot{s}_4 = \frac{2 l_f C_f}{I_z} \left( \delta - \frac{s_2 + l_f s_4}{V_x} \right) - \frac{2 l_r C_r}{I_z} \left( - \frac{s_2 - l_r s_4}{V_x} \right)
 \end{cases}
 $$
 
