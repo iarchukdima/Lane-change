@@ -1,1 +1,115 @@
 # Lane-change
+
+
+# Derivation of the 2DOF Bicycle Model Equations for Autonomous Vehicles
+
+This document explains how the equations of motion for the **2 Degrees of Freedom (2DOF) bicycle model** are derived, focusing on lateral and yaw dynamics of an autonomous vehicle.
+
+---
+
+## 1. Vehicle Model and Assumptions
+
+- The vehicle is simplified as a **bicycle model**, where the left and right wheels on each axle are combined into a single front and rear wheel.
+- The model considers only two degrees of freedom:
+  - **Lateral motion** (sideways displacement, denoted as \( y \))
+  - **Yaw motion** (rotation about the vertical axis, denoted as \( \psi \))
+- The **longitudinal velocity** \( V_x \) is assumed constant.
+- Roll, pitch, and vertical dynamics are neglected.
+
+---
+
+## 2. Newton’s Second Law Applied to the Vehicle
+
+### Lateral (Sideways) Dynamics
+
+The sum of lateral forces acting on the vehicle causes lateral acceleration:
+
+\[
+m \ddot{y} = 2F_f + 2F_r
+\]
+
+where:
+- \( m \) is the vehicle mass,
+- \( \ddot{y} \) is the lateral acceleration,
+- \( F_f \) and \( F_r \) are the lateral tire forces at the front and rear wheels, respectively,
+- The factor 2 accounts for the two wheels on each axle.
+
+### Yaw (Rotational) Dynamics
+
+The sum of moments about the vehicle’s center of gravity (CG) causes yaw acceleration:
+
+\[
+I_z \ddot{\psi} = 2 l_f F_f - 2 l_r F_r
+\]
+
+where:
+- \( I_z \) is the yaw moment of inertia,
+- \( \ddot{\psi} \) is the yaw acceleration,
+- \( l_f \) and \( l_r \) are distances from the CG to the front and rear axles.
+
+---
+
+## 3. Tire Lateral Forces
+
+The lateral tire forces are modeled using a **linear tire model**, valid for small slip angles:
+
+- **Front tire lateral force:**
+
+\[
+F_f = C_f \left( \delta - \frac{\dot{y} + l_f \dot{\psi}}{V_x} \right)
+\]
+
+- **Rear tire lateral force:**
+
+\[
+F_r = C_r \left( - \frac{\dot{y} - l_r \dot{\psi}}{V_x} \right)
+\]
+
+where:
+- \( C_f \), \( C_r \) are the cornering stiffness coefficients of front and rear tires,
+- \( \delta \) is the steering angle (control input),
+- \( \dot{y} \) is the lateral velocity,
+- \( \dot{\psi} \) is the yaw rate,
+- \( V_x \) is the longitudinal velocity.
+
+---
+
+## 4. Substituting Tire Forces into the Dynamics
+
+Substituting \( F_f \) and \( F_r \) into the lateral and yaw equations:
+
+\[
+m \ddot{y} = 2 C_f \left( \delta - \frac{\dot{y} + l_f \dot{\psi}}{V_x} \right) + 2 C_r \left( - \frac{\dot{y} - l_r \dot{\psi}}{V_x} \right)
+\]
+
+\[
+I_z \ddot{\psi} = 2 l_f C_f \left( \delta - \frac{\dot{y} + l_f \dot{\psi}}{V_x} \right) - 2 l_r C_r \left( - \frac{\dot{y} - l_r \dot{\psi}}{V_x} \right)
+\]
+
+These equations describe how the steering angle \( \delta \) affects the lateral and yaw accelerations through tire forces.
+
+---
+
+## 5. State-Space Representation
+
+Define the state variables:
+
+\[
+\begin{cases}
+x_1 = y \quad & \text{(lateral position)} \\
+x_2 = \dot{y} \quad & \text{(lateral velocity)} \\
+x_3 = \psi \quad & \text{(yaw angle)} \\
+x_4 = \dot{\psi} \quad & \text{(yaw rate)}
+\end{cases}
+\]
+
+The system dynamics can be expressed as:
+
+\[
+\begin{cases}
+\dot{x}_1 = x_2 \\
+\dot{x}_2 = \frac{2 C_f}{m} \left( \delta - \frac{x_2 + l_f x_4}{V_x} \right) + \frac{2 C_r}{m} \left( - \frac{x_2 - l_r x_4}{V_x} \right) \\
+\dot{x}_3 = x_4 \\
+\dot{x}_4 = \frac{2 l_f C_f}{I_z} \left( \delta - \frac{x_2 + l_f x_4}{V_x} \right) - \frac{2 l_r C_r}{I_z} \left( - \frac{x_2 - l_r x_4}{V_x} \right)
+\end{cases}
+\]
